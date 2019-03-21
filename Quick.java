@@ -2,6 +2,7 @@ import java.util.Arrays;
 public class Quick{
   //swap function swaps elements at too indicies
   private static void swap(int[] ary, int x1, int x2){
+    if(x1==x2)return;
     int a = ary[x1];
     int b = ary[x2];
     ary[x1]=b;
@@ -12,7 +13,7 @@ public class Quick{
     int pivot = ary[high];
     int lo = (low-1);
     for (int j=low; j<high; j++){
-        if (ary[j] <= pivot){
+        if (ary[j] < pivot){
           lo++;
           swap(ary,lo,j);
         }
@@ -24,18 +25,30 @@ public class Quick{
     quicksortH(data,0,data.length-1);
 
   }
+  //takes array with value to be matched at low, high last value, returns first different value
+  private static int dutch(int[] data, int low, int high){
+    int val = data[low];
+    for(int i = low; i<=high; i++){
+      if(data[i]==val){
+        swap(data,i,low);
+        low++;
+      }
+    }
+    return low;
+  }
   private static void quicksortH(int[] data, int lo, int hi){
     if(lo>=hi)return;
     int pivot = partition(data,lo,hi);
+    int pivot2 = dutch(data,pivot,hi);
     quicksortH(data,lo,pivot-1);
-    quicksortH(data,pivot+1,hi);
+    quicksortH(data,pivot2,hi);
   }
   public static int quickselect(int[] data, int k){
     quicksort(data);
     return data[k];
   }
-  public static void main(String[]args){
-    int[] test = new int[]{13,5,5,3,2,1,8,9,6,34,1,5,3,4,468,625,12,32,3,0};
+  /*public static void main(String[]args){
+    int[] test = new int[]{3,5,5,3,2,1,8,9,6,34,1,5,3,4,468,625,12,32,3,0};
     //int[] test1 = new int[]{0,1,2,3,4,5,6,7,8,9,10,11,12};
     System.out.println(Arrays.toString(test));
     //System.out.println(Arrays.toString(test1));
@@ -43,8 +56,8 @@ public class Quick{
     //System.out.println(Arrays.toString(r)+Arrays.toString(test));
     quicksort(test);
     System.out.println(Arrays.toString(test));
-  }
-  /*public static void main(String[]args){
+  }*/
+  public static void main(String[]args){
   System.out.println("Size\t\tMax Value\tquick/builtin ratio ");
   int[]MAX_LIST = {1000000000,500,10};
   for(int MAX : MAX_LIST){
@@ -77,5 +90,5 @@ public class Quick{
     }
     System.out.println();
   }
-}**/
+}
 }
