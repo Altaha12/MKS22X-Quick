@@ -36,8 +36,15 @@ public class Quick{
     }
     return low;
   }
+  private static void insertsort(int[] ary, int start, int end){
+    while(start<=end){
+      for(int i = start; i<=end; i++){
+        if(ary[i]<ary[start])swap(ary,i,start);
+      }
+      start++;
+    }}
   private static void quicksortH(int[] data, int lo, int hi){
-    if(lo>=hi)return;
+    if(hi-lo<=7){insertsort(data,lo,hi);return;}
     int pivot = partition(data,lo,hi);
     int pivot2 = dutch(data,pivot,hi);
     quicksortH(data,lo,pivot-1);
